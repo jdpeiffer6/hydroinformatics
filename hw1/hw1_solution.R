@@ -57,6 +57,7 @@ ggplot(rain_reshaped,aes(x=date,y=value,col=variable))+geom_line()+facet_wrap(~v
 # Parallelize -------------------------------------------------------------
 
 #without parallel
+NAs_in_rain=rain*0
 system.time({
   for(i in 1:dim(rain)[1]){
     NAs_in_rain[i,]=addNA(rain,i)
