@@ -1,6 +1,6 @@
 ---
 title: "Homework 1"
-subtitle: "Advanced Informatics"
+subtitle: "Advanced Hydroinformatics"
 author: "Missing Data Quantification and an introduction to Parallel Computing"
 date: "Due: 2/12/2021"
 output: pdf_document
@@ -10,11 +10,11 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-In this assignment we will develop functions for visualizing missing data in timeseries data. We will begin with an example dataset and then scale up our function to 50 years worth of data. Last, we will accelerate our computations with parallel programming packages. This assignment can be performed on any computer, although using the Lewis computing cluster may provide greater accelerations in the final, parallel computing, section.
+In this assignment we will develop functions for visualizing missing data in time series data. We will begin with an example dataset and then scale up our function to 50 years worth of data. Last, we will accelerate our computations with parallel programming packages. This assignment can be performed on any computer, although using the Lewis computing cluster may provide greater accelerations in the final, parallel computing, section.
 
 ## Section 1: An Example
 
-Hydrological datasets, sometimes collected over decades, may contain missing recordings. Depending on the recording issue, this could be an hour, a day, or a year. Let us define a simple timeseries with data from 4 different weather stations over 5 different days. Some of the readings are missing and their entry contains a `NA`.
+Hydrological datasets, sometimes collected over decades, may contain missing recordings. Depending on the recording issue, this could be an hour, a day, or a year. Let us define a simple time series with data from 4 different weather stations over 5 different days. Some of the readings are missing and their entry contains a `NA`.
 
 ```{r}
 test=matrix(nrow=5,ncol=4)
@@ -76,7 +76,7 @@ ggplot(reshaped, aes(x = date, y = value, col = variable)) + geom_line() +
 
 ## Section 2: Real data
 
-Set your working directory accodingly using `setwd()`. Be sure that the file `allprcp.Rdata` is in this dir.
+Set your working directory accordingly using `setwd()`. Be sure that the file `allprcp.Rdata` is in this dir.
 ```{r}
 load("allprcp.Rdata")
 ```
@@ -90,7 +90,7 @@ Although we can use the `View()` function still, it is good practice to try and 
 The data contains a few columns with date information, but our `addNA()` function is not written to deal with this type of data.  
 &nbsp;
 
-**Question 2.3** What is the column range of the data? (Begins with US....) Use this information to make a new data frame called rain.
+**Question 2.3** What is the column range of the data? (Names begin with US....) Use this information to make a new data frame called rain.
 ```{r, eval=FALSE}
 data_start_column = #Enter your answer here
 data_stop_column = #Enter your answer here
@@ -116,11 +116,12 @@ ggplot(rain_reshaped, aes(x = date, y = value, col = variable)) + geom_line() +
   facet_wrap( ~ variable)
 ```
 
-**Question 2.4** Describe the missing data trends in a few of the stations.
+**Question 2.4** Describe the missing data trends in a few of the stations.  
+**Question 2.5** Describe how this algorithm works.
 
 ## Section 3: Parallel
 
-With 7 stations and 50 years worth of data, the loop took a while to run! We can speed up this process by using **parallel programming**. Most computers, likely including your laptop, have multiple processers and can perform multiple processes at once--think about how you can move your mouse, run R code, and surf the internet all at the same time. Despite this, most code we write is **serial**, only one line of code is executed at a time. Let us time our **serial** code.
+With 7 stations and 50 years worth of data, the loop took a while to run! We can speed up this process by using **parallel programming**. Most computers, likely including your laptop, have multiple processors and can perform multiple processes at once--think about how you can move your mouse, run R code, and surf the internet all at the same time. Despite this, most code we write is **serial**, only one line of code is executed at a time. Let us time our **serial** code.
 ```{r, eval=FALSE}
 NAs_in_rain = rain * 0
 system.time({
@@ -132,7 +133,7 @@ system.time({
 **Question 3.1** What is the elapsed time of this code block?  
 &nbsp;
 
-Serial code is necessary if the second line of code depends on the first line of code. In the case of our loop, the output of one loop iteration does not depend on the output of the previous. In english: `addNA(rain,2)` can be run before, after, or at the same time as `addNA(rain,3)`. We will now use an R package that allows for-loops to run multiple iterations at the same time. 
+Serial code is necessary if the second line of code depends on the first line of code. In the case of our loop, the output of one loop iteration does not depend on the output of the previous. In English: `addNA(rain,2)` can be run before, after, or at the same time as `addNA(rain,3)`. We will now use an R package that allows for-loops to run multiple iterations at the same time. 
 ```{r, eval=FALSE}
 install.packages("doParallel")
 library(doParallel)
@@ -148,20 +149,20 @@ Take a look at the parallelized code below. It has many of the same parts of a f
 &nbsp;
 
 However, there are a few differences:  
-1. Instead of writing the output of `addNA()` every iteration, `foreach` arranges the ouput and gives us the output at the end. See `NAs_in_rain_par = foreach` and the `.combine` option.  
+1. Instead of writing the output of `addNA()` every iteration, `foreach` arranges the output and gives us the output at the end. See `NAs_in_rain_par = foreach` and the `.combine` option.  
 2. We need to explicitly tell the `foreach` function what data and functions it will be using. This is listed in the `.export` option.  
 3. Last, we need to specify the `%dopar%` option.  
 ```{r, eval=FALSE}
 system.time({
   NAs_in_rain_par = foreach(i = 1:dim(allprcp)[1], 
-                            .export = c('addNA', 'rain'), 
-                            .combine = 'rbind') %dopar% {
+                            .export = c("addNA", "rain"), 
+                            .combine = "rbind") %dopar% {
     addNA(rain, i)
   }
 })
 ```
 
-**Question 3.3** What is the elapsed time of this code? Is it faster than our earlier serial code?
+**Question 3.3** What is the elapsed time of this code? Is it faster than our earlier serial code? Why is this?
 
 Plot the code to make sure the function worked.
 ```{r, eval=FALSE}
