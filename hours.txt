@@ -2,7 +2,8 @@
 Wrote hw1 assignment
 2/3/21 8am-10am
 Finished hw1 (now hw3) and helped amber
-2/7/21 5:30-
+
+2/7/21 5:30-7:30
 Base range?
 max missing days => 15 annual, 3 monthly
 
@@ -16,3 +17,4 @@ TMIN = Minimum temperature (tenths of degrees C)
 PCICT requires:
 mm/day for precipitation and degrees Celsius for temperature
 
+Started hw4 and created bash video

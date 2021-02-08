@@ -1,0 +1,27 @@
+---
+title: "Computing on Clark and More Parallel Computing"
+author: "J.D. Peiffer"
+date: "2/7/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval=FALSE)
+```
+
+## Section 1: Connecting to Clark with mobaXterm
+1. Visit <https://missouri.app.box.com/v/rcss-mobaxterm-new> and download both files into your downloads folder.
+2. Run the .exe file, accept all defaults for installation.
+3. Open mobaXterm and click "Start Local Terminal" This will open a command interface for you to connect to Clark with.
+4. Generate a ssh key:
+    i) In your terminal type `ssh-keygen`.
+    ii) Accept all defaults by pushing enter. Do not enter a password.
+    iii) You only need to do this once!
+5. Connect to Clark
+    i) In your terminal, type `ssh <username>@clark.rnet.missouri.edu`. Replace <username> with your pawprint.
+    ii) Do not include brackets, for example `ssh jdp6n8@clark.rnet.missouri.edu`
+    iii) When prompted for your password, enter your university password. **NOTE THAT WHAT YOU TYPE DOES NOT SHOW UP IN THE TERMINAL**
+  
+## Section 2: Linux commands on Clark
+
