@@ -18,3 +18,9 @@ PCICT requires:
 mm/day for precipitation and degrees Celsius for temperature
 
 Started hw4 and created bash video
+
+2/8/21 8:37-9:34
+finished up some indice stuff
+
+2/10/21 1-2
+helped thaksha

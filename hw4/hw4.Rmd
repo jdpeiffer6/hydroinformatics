@@ -19,9 +19,35 @@ knitr::opts_chunk$set(eval=FALSE)
     ii) Accept all defaults by pushing enter. Do not enter a password.
     iii) You only need to do this once!
 5. Connect to Clark
-    i) In your terminal, type `ssh <username>@clark.rnet.missouri.edu`. Replace <username> with your pawprint.
+    i) In your terminal, type `ssh <username>@clark.rnet.missouri.edu`  
+    Replace `<username>` with your pawprint.  
+    ![mobaimagee](./mobA.png)
     ii) Do not include brackets, for example `ssh jdp6n8@clark.rnet.missouri.edu`
-    iii) When prompted for your password, enter your university password. **NOTE THAT WHAT YOU TYPE DOES NOT SHOW UP IN THE TERMINAL**
+    iii) When prompted for your password, enter your university password. **NOTE THAT WHAT YOU TYPE DOES NOT SHOW UP IN THE TERMINAL** You should then see something like this:  
+    ![mobaimage](./clarklogin.png)
   
 ## Section 2: Linux commands on Clark
+# Need to add data copy
+Watch [**this video**](https://youtu.be/9vZ8V6KDYFo) if you are not familiar with bash/linux commands. These will be useful in mobaXterm and Clark.  
+**Question 2.1** In your own words, provide a description of what each of the following bash terminal commands do (google is your friend):  
+- `pwd`  
+- `ls`  
+- `cd`  
+- `touch`  
+- `rm`  
+- `cat`  
+- `cp`  
+- `mv`  
+- `mkdir`  
+**Question 2.2** In your home directory, create a folder named `hw4` and in it create a file name `test.txt`. Screenshot the output of `ls` in this directory (Hint: windows users hold `windows button + shift + s`)  
+&nbsp;
 
+When you log into Clark, you are logging into part of a computer cluster called a *node*. Every time, you start out in the *login node*. Here, you can perform basic tasks like making folders and files, but more data intensive tasks, like running R or NCL, must be done on a compute node.  
+&nbsp;
+
+To request a node for this task, type this into your terminal: `srun -n 1 --mem 4G --pty /bin/bash`  
+Notice the node name at your command line changes!
+&nbsp;
+
+To load the rstudio software, type `module load rstudio/1.1.456`  
+Next, type `rstudio`  
