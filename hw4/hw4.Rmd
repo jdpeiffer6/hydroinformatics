@@ -39,6 +39,8 @@ Watch [**this video**](https://youtu.be/9vZ8V6KDYFo) if you are not familiar wit
 - `cp`  
 - `mv`  
 - `mkdir`  
+&nbsp;
+
 **Question 2.2** In your home directory, create a folder named `hw4` and in it create a file name `test.txt`. Screenshot the output of `ls` in this directory (Hint: windows users hold `windows button + shift + s`)  
 &nbsp;
 
@@ -46,6 +48,8 @@ When you log into Clark, you are logging into part of a computer cluster called 
 &nbsp;
 
 To request a node for this task, type this into your terminal: `srun -n 1 --mem 4G --pty /bin/bash`  
+&nbsp;
+
 Notice the node name at your command line changes!
 &nbsp;
 
