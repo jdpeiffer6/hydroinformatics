@@ -47,7 +47,7 @@ Watch [**this video**](https://youtu.be/9vZ8V6KDYFo) if you are not familiar wit
 When you log into Clark, you are logging into part of a computer cluster called a *node*. Every time, you start out in the *login node*. Here, you can perform basic tasks like making folders and files, but more data intensive tasks, like running R or NCL, must be done on a compute node.  
 &nbsp;
 
-To request a node for this task, type this into your terminal: `srun -n 1 --mem 4G --pty /bin/bash`  
+To request a node for this task, type this into your terminal: `srun -n 1 --mem 8G --pty /bin/bash`  
 &nbsp;
 
 Notice the node name at your command line changes!
@@ -79,6 +79,11 @@ This section will use the same code as hw3, but since the clark cluster has many
 First, let us run the code to quantify NAs with only one processor! This may take a **while**.
 
 ```{r, eval=FALSE}
+addNA = function(data_with_some_nas, starting_row) {
+  nas = is.na(data_with_some_nas[starting_row:dim(data_with_some_nas)[1], ])
+  return(apply(nas, 2, sum))
+}
+
 NAs_in_rain = rain * 0
 system.time({
   for (i in 1:dim(rain)[1]) {
@@ -90,3 +95,30 @@ system.time({
 **Question 4.1** How long did this take to take to run on clark? (Do not try on your personal computer).  
 
 ## Section 5: Quantify NAs in Parallel
+Exit your rstudio session and type `exit` in your command prompt. This will exit your compute node. To run parallel jobs, we need to request more cores!  
+&nbsp;
+
+Type `srun -n 8 --mem 8G --pty /bin/bash`. Load rstudio and your data as done previously.  
+Now we will install the parallel package and parallelize our code.  
+```{r, eval=FALSE}
+install.packages("doParallel")
+library(doParallel)
+
+getDoParWorkers()
+```
+**Question 5.1** What is the output of getDoParWorkers()? What does this represent?  
+&nbsp;
+
+Now, run this task using two cores!  
+```{r, eval=FALSE}
+registerDoParallel(cores=2)
+system.time({
+  NAs_in_rain_par = foreach(i = 1:dim(allprcp)[1], 
+                            .export = c("addNA", "rain"), 
+                            .combine = "rbind") %dopar% {
+    addNA(rain, i)
+  }
+})
+```
+
+**Question 5.2** What is the elapsed time of this code? Is it faster than our earlier serial code? Why is this?

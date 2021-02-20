@@ -10,7 +10,7 @@ dim(allprcp)
 data_start_column = 6
 data_stop_column = dim(allprcp)[2]
   
-rain = allprcp[, data_start_column:data_stop_column]
+rain = allprcp[, data_start_column:8]
 
 sum(is.na(rain))
 
