@@ -104,6 +104,7 @@ Now we will install the parallel package and parallelize our code.
 install.packages("doParallel")
 library(doParallel)
 
+registerDoParallel()
 getDoParWorkers()
 ```
 **Question 5.1** What is the output of getDoParWorkers()? What does this represent?  
