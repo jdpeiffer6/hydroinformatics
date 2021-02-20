@@ -8,6 +8,8 @@ data_stop_column = dim(allprcp)[2]
   
 rain = allprcp[, data_start_column:data_stop_column]
 
+#just for timing experiments:
+rain=rain[,1:(dim(rain)[2]/4)]
 sum(is.na(rain))
 
 NAs_in_rain = rain * 0
