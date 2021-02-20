@@ -1,4 +1,8 @@
 # Section 3 ---------------------------------------------------------------
+addNA = function(data_with_some_nas, starting_row) {
+  nas = is.na(data_with_some_nas[starting_row:dim(data_with_some_nas)[1], ])
+  return(apply(nas, 2, sum))
+}
 
 load("allprcp.Rdata")
 dim(allprcp)
@@ -8,8 +12,6 @@ data_stop_column = dim(allprcp)[2]
   
 rain = allprcp[, data_start_column:data_stop_column]
 
-#just for timing experiments:
-rain=rain[,1:(dim(rain)[2]/4)]
 sum(is.na(rain))
 
 NAs_in_rain = rain * 0
