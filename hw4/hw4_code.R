@@ -45,3 +45,23 @@ system.time({
                               addNA(rain, i)
                             }
 })
+
+registerDoParallel(cores=6)
+getDoParWorkers()
+system.time({
+  NAs_in_rain_par6 = foreach(i = 1:dim(allprcp)[1], 
+                             .export = c("addNA", "rain"), 
+                             .combine = "rbind") %dopar% {
+                               addNA(rain, i)
+                             }
+})
+
+registerDoParallel(cores=8)
+getDoParWorkers()
+system.time({
+  NAs_in_rain_par8 = foreach(i = 1:dim(allprcp)[1], 
+                             .export = c("addNA", "rain"), 
+                             .combine = "rbind") %dopar% {
+                               addNA(rain, i)
+                             }
+})
