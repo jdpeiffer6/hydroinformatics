@@ -28,9 +28,8 @@ print("Parallel")
 library(doParallel)
 registerDoParallel(cores=2)
 getDoParWorkers()
-NAs_in_rain = rain * 0
 system.time({
-  NAs_in_rain_par = foreach(i = 1:dim(allprcp)[1], 
+  NAs_in_rain_par2 = foreach(i = 1:dim(allprcp)[1], 
                             .export = c("addNA", "rain"), 
                             .combine = "rbind") %dopar% {
                               addNA(rain, i)
@@ -39,9 +38,8 @@ system.time({
 
 registerDoParallel(cores=4)
 getDoParWorkers()
-NAs_in_rain = rain * 0
 system.time({
-  NAs_in_rain_par = foreach(i = 1:dim(allprcp)[1], 
+  NAs_in_rain_par4 = foreach(i = 1:dim(allprcp)[1], 
                             .export = c("addNA", "rain"), 
                             .combine = "rbind") %dopar% {
                               addNA(rain, i)
