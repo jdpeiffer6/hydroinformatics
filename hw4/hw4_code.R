@@ -26,11 +26,8 @@ system.time({
 print("Parallel")
 #install.packages("doParallel")
 library(doParallel)
-
-getDoParWorkers()
-
-
 registerDoParallel(cores=2)
+getDoParWorkers()
 system.time({
   NAs_in_rain_par = foreach(i = 1:dim(allprcp)[1], 
                             .export = c("addNA", "rain"), 
