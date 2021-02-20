@@ -31,4 +31,6 @@ worked on hw4 and indice analysis
 2/16/21 9:30-11
 finishing hw4
 
-2/20/21 12:25-
+2/20/21 12:25-2:58
+Finished running parallel stuff
+Still need to tidy up
