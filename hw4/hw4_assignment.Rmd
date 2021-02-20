@@ -59,4 +59,19 @@ Next, type `rstudio`
 ## Section 3: Load and Characterize Data
 Make sure your working directory contains the file "allprcp.Rdata".  
 
-Load the variable into your workspace with `r load("allprcp.Rdata")
+Load the variable into your workspace with `r load("allprcp.Rdata")`
+
+**Question 3.1** What are the dimensions of this dataset? What is represented on the x and y dimension? (Hint: similiar to hw3).  
+**Question 3.2** What is the beginning and end date of this time series?  
+**Question 3.3** What is the column range of the data? (Names begin with US....) Use this information to make a new data frame called rain.
+```{r, eval=FALSE}
+data_start_column = #Enter your answer here
+data_stop_column = #Enter your answer here
+
+rain = allprcp[, data_start_column:data_stop_column]
+```
+**Question 3.4** How many missing data enteies are there in the entirety of this dataset? (Hint: `sum()` and `is.na()`)  
+&nbsp;
+
+That's a lot of missing data! Let us try and itentify a suitable date to being our analysis. If we start at 1980 instead of 1970, there may be less missing data! Remember what we did in hw3.  
+## Section 4: Quantify NAs in Serial
