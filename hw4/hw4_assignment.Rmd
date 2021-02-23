@@ -27,8 +27,7 @@ knitr::opts_chunk$set(eval=FALSE)
     ![mobaimage](./clarklogin.png)
   
 ## Section 2: Linux commands on Clark
-# Need to add data copy
-Watch [**this video**](https://youtu.be/9vZ8V6KDYFo) if you are not familiar with bash/linux commands. These will be useful in mobaXterm and Clark.  
+Watch [**this video**](https://youtu.be/9vZ8V6KDYFo) if you are not familiar with bash/Linux commands. These will be useful in mobaXterm and Clark.  
 &nbsp;
 
 **Question 2.1** In your own words, provide a description of what each of the following bash terminal commands do (google is your friend):  
@@ -58,13 +57,26 @@ Notice the node name at your command line changes!
 
 To load the rstudio software, type `module load rstudio/1.1.456`  
 Next, type `rstudio`  
+Congratulations! You are running R on Clark!  
+
+### Data Transfer
+
+1. Exit your rstudio session by clicking the "X" button. Exit your compute node by typing `exit` and exit Clark by typing `exit`.  
+2. You are now in your local computer's mobaXterm folder. We need to navigate to the hw4 data files on our computer and transfer them to Clark.  
+3. Type `cd /drives/c/Users`  
+4. Type `ls` to list available options and then `cd` followed by your username.  
+5. Type `cd Downloads`  or navigate to the folder with your hw4 data.  
+The general format of the data transfer command is `rsync -avhP DATA_FILE DESTINATION` where DATA_FILE is the name of your file and DESTINATION will be the address of Clark.  
+6. Type `rsync -avhP allprcp.Rdata <pawprint>@clark.rnet.missouri.edu:/home/<pawprint>/hw4/`  where <pawprint> is your pawprint.  
+7. For code: `rsync -avhP hw4_code.R <pawprint>@clark.rnet.missouri.edu:/home/<pawprint>/hw4/`  
+
 
 ## Section 3: Load and Characterize Data
 Make sure your working directory contains the file "allprcp.Rdata".  
 
 Load the variable into your workspace with `load("allprcp.Rdata")`
 
-**Question 3.1** What are the dimensions of this dataset? What is represented on the x and y dimension? (Hint: similiar to hw3).  
+**Question 3.1** What are the dimensions of this dataset? What is represented on the x and y dimension? (Hint: similar to hw3).  
 **Question 3.2** What is the beginning and end date of this time series?  
 **Question 3.3** What is the column range of the data? (Names begin with US....) Use this information to make a new data frame called rain.
 ```{r, eval=FALSE}
@@ -73,13 +85,14 @@ data_stop_column = #Enter your answer here
 
 rain = allprcp[, data_start_column:data_stop_column]
 ```
-**Question 3.4** How many missing data enteies are there in the entirety of this dataset? (Hint: `sum()` and `is.na()`)  
+**Question 3.4** How many missing data entries are there in the entirety of this dataset? (Hint: `sum()` and `is.na()`)  
+**Question 3.5** What percentage of the total data entries is NA?
 &nbsp;
 
-That's a lot of missing data! Let us try and itentify a suitable date to being our analysis. If we start at 1980 instead of 1970, there may be less missing data! Remember what we did in hw3.  
+That's a lot of missing data! Let us try and identify a suitable date to being our analysis. If we start at 1980 instead of 1970, there may be less missing data! Remember what we did in hw3.  
 
 ## Section 4: Quantify NAs in Serial
-This section will use the same code as hw3, but since the clark cluster has many cores, it allows us to highly parallelize this task!  
+This section will use the same code as hw3, but since the Clark cluster has many cores, it allows us to highly parallelize this task!  
 First, let us run the code to quantify NAs with only one processor! This may take a **while**, it took me around 8 minutes on Clark.
 
 ```{r, eval=FALSE}
@@ -96,7 +109,7 @@ system.time({
 })
 ```
 
-**Question 4.1** How long did this take to take to run on clark? (Do not try on your personal computer).  
+**Question 4.1** How long did this take to take to run on Clark? (Do not try on your personal computer).  
 
 ## Section 5: Quantify NAs in Parallel
 Exit your rstudio session and type `exit` in your command prompt. This will exit your compute node. To run parallel jobs, we need to request more cores!  
@@ -129,3 +142,30 @@ system.time({
 **Question 5.2** What is the elapsed time of this code? Is it faster than our earlier serial code? Why is this?  
 **Question 5.3** Run the same code with 4 cores, 6 cores, and 8 cores. Record and plot the output with cores on the x axis and time on the y. Use any (R) plotting method you like.  
 **Question 5.4** Describe your graph.  
+
+## Section 6: Plotting Data
+We are finally ready to view our data and choose at what date to start our analysis.  
+```{r, eval=FALSE}
+library(ggplot2)
+sumgt = function(x) {
+  #simply adds up number of stations with less than lessThan missing days
+  #this is what we will consider to be "too many" missing days
+  lessThan = 500
+  return(sum(x < lessThan))
+}
+lthan = 500
+
+missings = apply(NAs_in_rain_par8, 1, sumgt)
+missings = data.frame(missings, date = as.Date(allprcp$date))   #plots things
+ggplot(data = missings, aes(x = date, y = missings, group = 1)) + geom_line(col =
+                                                                              "blue", size = 2) + scale_x_date(date_labels = "%Y") +
+  labs(
+    x = "Date of cutoff",
+    y = paste('Sites with less than', lthan, '\nmissing days'),
+    title = "Cutoff date vs Missing Days"
+  ) +
+  theme(axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14, face = "bold"))
+
+```
+**Question 6.1** Where would you begin your analysis?  
