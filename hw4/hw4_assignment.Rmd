@@ -59,7 +59,7 @@ Next, type `rstudio`
 ## Section 3: Load and Characterize Data
 Make sure your working directory contains the file "allprcp.Rdata".  
 
-Load the variable into your workspace with `r load("allprcp.Rdata")`
+Load the variable into your workspace with `load("allprcp.Rdata")`
 
 **Question 3.1** What are the dimensions of this dataset? What is represented on the x and y dimension? (Hint: similiar to hw3).  
 **Question 3.2** What is the beginning and end date of this time series?  
@@ -74,6 +74,7 @@ rain = allprcp[, data_start_column:data_stop_column]
 &nbsp;
 
 That's a lot of missing data! Let us try and itentify a suitable date to being our analysis. If we start at 1980 instead of 1970, there may be less missing data! Remember what we did in hw3.  
+
 ## Section 4: Quantify NAs in Serial
 This section will use the same code as hw3, but since the clark cluster has many cores, it allows us to highly parallelize this task!  
 First, let us run the code to quantify NAs with only one processor! This may take a **while**.
@@ -122,4 +123,6 @@ system.time({
 })
 ```
 
-**Question 5.2** What is the elapsed time of this code? Is it faster than our earlier serial code? Why is this?
+**Question 5.2** What is the elapsed time of this code? Is it faster than our earlier serial code? Why is this?  
+**Question 5.2** Run the same code with 4 cores, 6 cores, and 8 cores. Record and plot the output with cores on the x axis and time on the y. Use any plotting method you like.
+**Question 5.3** Describe your graph.
