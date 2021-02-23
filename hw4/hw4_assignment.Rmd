@@ -15,7 +15,7 @@ knitr::opts_chunk$set(eval=FALSE)
 2. Run the .exe file, accept all defaults for installation.
 3. Open mobaXterm and click "Start Local Terminal" This will open a command interface for you to connect to Clark with.
 4. Generate a ssh key:
-    i) In your terminal type `ssh-keygen`.
+    i) In your terminal type `ssh-keygen`
     ii) Accept all defaults by pushing enter. Do not enter a password.
     iii) You only need to do this once!
 5. Connect to Clark
@@ -43,7 +43,7 @@ Watch [**this video**](https://youtu.be/9vZ8V6KDYFo) if you are not familiar wit
 - `mkdir`  
 &nbsp;
 
-**Question 2.2** In your home directory, create a folder named `hw4` and in it create a file name `test.txt`. Screenshot the output of `ls` in this directory (Hint: windows users hold `windows button + shift + s`)  
+**Question 2.2** In your home directory on Clark, create a folder named `hw4` and in it create a file name `test.txt`. Screenshot the output of `ls` in this directory (Hint: windows users hold `windows button + shift + s`)  
 &nbsp;
 
 When you log into Clark, you are logging into part of a computer cluster called a *node*. Every time, you start out in the *login node*. Here, you can perform basic tasks like making folders and files, but more data intensive tasks, like running R or NCL, must be done on a compute node.  
@@ -67,7 +67,7 @@ Congratulations! You are running R on Clark!
 4. Type `ls` to list available options and then `cd` followed by your username.  
 5. Type `cd Downloads`  or navigate to the folder with your hw4 data.  
 The general format of the data transfer command is `rsync -avhP DATA_FILE DESTINATION` where DATA_FILE is the name of your file and DESTINATION will be the address of Clark.  
-6. Type `rsync -avhP allprcp.Rdata <pawprint>@clark.rnet.missouri.edu:/home/<pawprint>/hw4/`  where <pawprint> is your pawprint.  
+6. Type `rsync -avhP allprcp.Rdata <pawprint>@clark.rnet.missouri.edu:/home/<pawprint>/hw4/`  where `<pawprint>` is your pawprint.  
 7. For code: `rsync -avhP hw4_code.R <pawprint>@clark.rnet.missouri.edu:/home/<pawprint>/hw4/`  
 
 
@@ -143,7 +143,7 @@ system.time({
 
 **Question 5.2** What is the elapsed time of this code? Is it faster than our earlier serial code? Why is this?  
 **Question 5.3** Run the same code with 4 cores, 6 cores, and 8 cores. Record and plot the output with cores on the x axis and time on the y. Use any (R) plotting method you like.  
-**Question 5.4** Describe your graph.  
+**Question 5.4** Describe your graph. Include a screenshot of it in your response.  
 
 ## Section 6: Plotting Data
 We are finally ready to view our data and choose at what date to start our analysis.  
@@ -170,4 +170,4 @@ ggplot(data = missings, aes(x = date, y = missings, group = 1)) + geom_line(col 
         axis.title = element_text(size = 14, face = "bold"))
 
 ```
-**Question 6.1** Where would you begin your analysis?  
+**Question 6.1** Include a screenshot of the plot. Where would you begin your analysis?  
