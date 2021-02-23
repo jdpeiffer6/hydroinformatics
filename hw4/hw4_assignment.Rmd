@@ -29,7 +29,10 @@ knitr::opts_chunk$set(eval=FALSE)
 ## Section 2: Linux commands on Clark
 # Need to add data copy
 Watch [**this video**](https://youtu.be/9vZ8V6KDYFo) if you are not familiar with bash/linux commands. These will be useful in mobaXterm and Clark.  
+&nbsp;
+
 **Question 2.1** In your own words, provide a description of what each of the following bash terminal commands do (google is your friend):  
+
 - `pwd`  
 - `ls`  
 - `cd`  
@@ -77,7 +80,7 @@ That's a lot of missing data! Let us try and itentify a suitable date to being o
 
 ## Section 4: Quantify NAs in Serial
 This section will use the same code as hw3, but since the clark cluster has many cores, it allows us to highly parallelize this task!  
-First, let us run the code to quantify NAs with only one processor! This may take a **while**.
+First, let us run the code to quantify NAs with only one processor! This may take a **while**, it took me around 8 minutes on Clark.
 
 ```{r, eval=FALSE}
 addNA = function(data_with_some_nas, starting_row) {
@@ -124,5 +127,5 @@ system.time({
 ```
 
 **Question 5.2** What is the elapsed time of this code? Is it faster than our earlier serial code? Why is this?  
-**Question 5.2** Run the same code with 4 cores, 6 cores, and 8 cores. Record and plot the output with cores on the x axis and time on the y. Use any plotting method you like.
-**Question 5.3** Describe your graph.
+**Question 5.3** Run the same code with 4 cores, 6 cores, and 8 cores. Record and plot the output with cores on the x axis and time on the y. Use any (R) plotting method you like.  
+**Question 5.4** Describe your graph.  
