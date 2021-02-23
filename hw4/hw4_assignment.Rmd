@@ -1,7 +1,7 @@
 ---
-title: "Computing on Clark and More Parallel Computing"
-author: "J.D. Peiffer"
-date: "2/7/2021"
+title: "Homework 4"
+subtitle: "Advanced Hydroinformatics"
+author: "Computing on Clark and More Parallel Computing"
 output: pdf_document
 ---
 
@@ -72,6 +72,8 @@ The general format of the data transfer command is `rsync -avhP DATA_FILE DESTIN
 
 
 ## Section 3: Load and Characterize Data
+Login to Clark and start an R session.  
+
 Make sure your working directory contains the file "allprcp.Rdata".  
 
 Load the variable into your workspace with `load("allprcp.Rdata")`
