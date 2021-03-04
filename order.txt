@@ -1,0 +1,43 @@
+1. run CL r on clark
+	-Install packages we need for hw4
+	-ggplot
+	-doParallel
+2. go through ez one
+3. transfer folder to clark
+4. introduce batch script
+5. introduce vim/nano
+	change: 
+		cores
+6. Submit script
+7. Watch
+	sacct -X
+	squeue
+	scancel
+	sstat --format=AveCPU,AvePages,AveRSS,AveVMSize,JobID
+
+
+#--------------------------------------------------------------------------------
+#  SBATCH CONFIG
+#--------------------------------------------------------------------------------
+#SBATCH --job-name=hw4                        # name for the job
+#SBATCH --cpus-per-task 8             # number of cores
+#SBATCH --mem=8G                      # total memory
+#SBATCH --time 0-01:00                # time limit in the form days-hours:minutes
+#SBATCH --mail-user=jdp6n8@mail.missouri.edu  # email address for notifications
+#SBATCH --mail-type=FAIL,END          # email types
+#SBATCH --output=hw4.txt
+#SBATCH --partition General           # max of 1 node and 4 hours; use `Lewis` for larger jobs
+#--------------------------------------------------------------------------------
+
+echo "### Starting at: $(date) ###"
+
+## Module Commands
+# 'use module avail r/' to find the latest version
+module load r/r-4.0.2
+
+## Run the R script
+SCRIPT='hw4_code_batch.R'
+srun Rscript ${SCRIPT}
+
+echo "### Ending at: $(date) ###"
+
