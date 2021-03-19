@@ -1,0 +1,18 @@
+In this question, you will devolop a function to compute a moving average of timeseries data. This would be useful in writing your own function to convert daily data to monthly data.
+
+A) In R, write a function called "smoother" that takes three inputs:
+ "input": a vector of time series data
+ "index": the location that we want to compute the mean at 
+ "width": the width of the window that we want to use to compute the average. 
+ 
+ This function should take the mean of all of the values of input within the width (centered at index). An example of this is shown in Figure 1 with width=5. Figure 2 demonstrates the output of the function at index=2. Edge cases of this should be handled by just using the part of the window that exists. For instance, index=2 gives a range of 0-4, so we just set the first value in the range to be 1. Run the test script (which uses your function) and describe the output. Attach the plot.
+ 
+ B) Load the data file into your workspace. Use only the first 8 columns of the data. Write a loop that goes through every row of the data. It should use the function "apply" to compute the smooth at that index for each column. Hint: apply(DATA_MATRIX,MARGIN,FUN = smoother,index = i,width = 5). This should take about 2.2 minutes to run. The output plot is just a short section of one of the timeseries. Describe what the function does. Attach the plot.
+ 
+ C) Parallelize this loop using a similiar method to Assignment 3/4. You may copy/paste your code but will need to make a few changes:
+ (1) Name the output of foreach "rain_smooth_par"
+ (2) Tell the function what data and function to use in the .export argument. You will need to give it the "smoother" and "rain" data. The part inside the loop can just be the apply function you devoloped in part B. You do not need to assign any output to it as that is done in the .combine argument. Report how long this code took to run.
+ 
+ D) Transfer the entire folder with your completed code to clark (You may want to create a batch script before you transfer or copy your previous one). Instead of syncing to your home folder (/home/YOUR_PAWPRINT), sync to your class folder (/group/env_sc_8001/YOUR_PAWPRINT). You will need to change your script's working directory to the exam folder you create in your class folder. Submit your batch job from that folder, and make sure the output data is there (that is where your grade will be).
+ 
+ apply(rain,2,FUN = smoother,index = i,width = 5)
