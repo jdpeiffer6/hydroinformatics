@@ -1,6 +1,7 @@
-#make sure you set your working dir to the directory with this script in it for the test scripts to work.
+#make sure you set your working dir to the directory 
+#with this script in it.
 setwd("")
-# A) Devolop a function and test ------------------------------------------
+# A) Develop a function and test ------------------------------------------
 load(".verify/verification_data.Rdata")
 smoother = function(input, index, width) {
   output=input*0
